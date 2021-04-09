@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use('/', Routes)
 
+const PORT = process.env.PORT || 8000;
 
 mongoose
     .connect(mongo_uri, {
@@ -22,8 +23,8 @@ mongoose
         useUnifiedTopology: true
     })
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Server Listen On ${process.env.PORT}`)
+        app.listen(PORT, () => {
+            console.log(`Server Listen On ${PORT}`)
         })
     })
     .catch(err => {
