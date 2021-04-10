@@ -65,8 +65,8 @@ exports.postOrderProduct = async (req, res) => {
     const _id = req.params.id;
     try {
         const user = await User.findById({ _id })
-        const ckToOr = (...user.oders, ...user.checkouts)
-        user.orders = ckToOr;
+        //const ckToOr = (...user.oders, ...user.checkouts)
+        user.orders.push(...user.checkouts)
         user.checkouts = [];
         await user.save()
         res.status(200).json(user.orders)
