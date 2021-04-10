@@ -9,7 +9,7 @@ exports.createUser = async (req, res) => {
             email
         })
         let user = await newUser.save()
-        if(user) {
+        if (user) {
             res.status(201).json(user)
         }
     } catch (e) {
@@ -19,8 +19,17 @@ exports.createUser = async (req, res) => {
 exports.getUser = async (req, res) => {
     try {
         const _id = req.body.id;
-        let user = await User.findById({_id })
-        if(user) {
+        let user = await User.findById({ _id })
+            .populate({
+                path: 'orders',
+                select: 'name price'
+            })
+            .populate({
+                path: 'checkouts',
+                select: 'name, price'
+            })
+        if (user) {
+
             res.status(201).json(user)
         }
     } catch (e) {
