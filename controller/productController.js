@@ -65,7 +65,7 @@ exports.postOrderProduct = async (req, res) => {
     const _id = req.params.id;
     try {
         const user = await User.findById({ _id })
-        const ckToOr = [...user.oders, ...user.checkouts]
+        const ckToOr = (...user.oders, ...user.checkouts)
         user.orders = ckToOr;
         user.checkouts = [];
         await user.save()
